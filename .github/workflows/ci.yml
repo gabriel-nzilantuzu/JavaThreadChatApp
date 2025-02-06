@@ -1,0 +1,29 @@
+name: Java CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set Up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: "temurin"
+          java-version: "17"
+
+      - name: Install JUnit
+        run: |
+          sudo apt update
+          sudo apt upgrade
+          sudo apt install maven
+
+      - name: Compile Code
+        run: mvn clean install
